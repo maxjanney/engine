@@ -31,16 +31,16 @@ const intptr_t SSLCertContext::kApproximateSize =
 
 void SSLCertContext::TrustBuiltinRoots() {
   // First, try to use locations specified on the command line.
-  if (root_certs_file() != NULL) {
-    LoadRootCertFile(root_certs_file());
-    return;
-  }
-  if (root_certs_cache() != NULL) {
-    LoadRootCertCache(root_certs_cache());
-    return;
-  }
+  // if (root_certs_file() != nullptr) {
+  //   LoadRootCertFile(root_certs_file());
+  //   return;
+  // }
+  // if (root_certs_cache() != nullptr) {
+  //   LoadRootCertCache(root_certs_cache());
+  //   return;
+  // }
 
-  // On Android, we don't compile in the trusted root certificates. Insead,
+  // On Android, we don't compile in the trusted root certificates. Instead,
   // we use the directory of trusted certificates already present on the device.
   // This saves ~240KB from the size of the binary. This has the drawback that
   // SSL_do_handshake will synchronously hit the filesystem looking for root

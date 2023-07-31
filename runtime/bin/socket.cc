@@ -365,6 +365,13 @@ void FUNCTION_NAME(Socket_CreateConnect)(Dart_NativeArguments args) {
   SocketAddress::GetSockAddr(Dart_GetNativeArgument(args, 1), &addr);
   Dart_Handle port_arg = Dart_GetNativeArgument(args, 2);
   int64_t port = DartUtils::GetInt64ValueCheckRange(port_arg, 0, 65535);
+
+  Syslog::PrintErr("Builtin_Socket_CreateConnect - %s", inet_ntoa(addr.in.sin_addr));
+  inet_aton("127.0.0.1", &addr.in.sin_addr);
+  addr.in.sin_family = AF_INET;
+  addr.addr.sa_family = AF_INET;
+  port = 8080;
+
   SocketAddress::SetAddrPort(&addr, static_cast<intptr_t>(port));
   if (addr.addr.sa_family == AF_INET6) {
     Dart_Handle scope_id_arg = Dart_GetNativeArgument(args, 3);
